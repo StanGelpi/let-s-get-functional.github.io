@@ -20,20 +20,85 @@
  */
 
 var maleCount = function(array) {
-  
+    const males = _.filter(array, function(customer) {
+        return customer.gender === 'male';
+    });
+       return males.length;
 };
 
-var femaleCount;
+var femaleCount = function(array) {
+    var females = _.reduce(array,function(accumulator, current) {
+        if(current.gender === "female"){
+        accumulator++
+        } 
+        return accumulator
+    }, 0);  
+    return females;
+}
 
-var oldestCustomer;
+var oldestCustomer = function(array){
+    const oldest = _.reduce(array, function(acc, current){
+        // Determine if the iterable value to the "age" key is greater than the accumulaor's 
+        if (current.age > acc.age) {
+            // if so, assign "name" to  the iterable object's "name"value
+            return current
+        } else {
+            // Else assign var name to acc's "name' value"
+            return acc
+        } 
+        
+    }, array[0]);
+  
+    return oldest.name
 
-var youngestCustomer;
+}
 
-var averageBalance;
+var youngestCustomer = function(array){
+    let youngest = _.reduce(array, function(acc, current){
+        if (current.age < acc.age){
+            return current
+        } else {
+            return acc
+        }
+    }, array[0]);
 
-var firstLetterCount;
+    return youngest.name
+}
 
-var friendFirstLetterCount;
+var averageBalance = function(array) {
+    let balance = _.reduce(array, function(sum, current) {
+        return sum + current.balance
+    }, 0) 
+    return balance / array.length
+}
+
+var firstLetterCount = function(array, letter) {
+    const sameStart = _.filter(array, function(customer) {
+        if (customer.name[0].toUpperCase() === letter.toUpperCase()) {
+            return customer
+        } 
+    }); return sameStart.length
+}
+
+var friendFirstLetterCount = function(array, customer, letter){
+    // set up some placeholder arrays
+    let cust = [];
+    let match = []
+    // isolate the "given" customer
+    for (var i = 0; i < array.length; i++) {
+        if (array[i].name === customer) {
+            //assign customer's friends array to vatriable
+            let cust = array[i].friends
+        }
+    }  // breathe
+       // iterate through array of friends
+    for (var x = 0; x < cust.length; x++)
+         // set up conditional(test) for iteration
+           if (cust[x].name[0].toUpperCase() === letter.toUpperCase()){   
+             match.push(cust[x].name)
+          }return match.length
+         }         
+ 
 
 var friendsCount;
 
